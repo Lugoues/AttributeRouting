@@ -23,7 +23,7 @@ namespace AttributeRouting.Web.Http.Framework
                                   HttpRouteValueDictionary constraints,
                                   HttpRouteValueDictionary dataTokens,
                                   HttpAttributeRoutingConfigurationBase configuration)
-            : base(url, defaults, constraints, dataTokens, configuration.MessageHandler)
+            : base(url, defaults, constraints, dataTokens)
         {
             _configuration = configuration;
         }
