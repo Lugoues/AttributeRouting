@@ -80,6 +80,7 @@
     <Compile Include="Framework\Factories\IParameterFactory.cs" />
     <Compile Include="Framework\IAttributeRoute.cs" />
     <Compile Include="Framework\Localization\ControllerTranslationBuilder.cs" />
+    <Compile Include="Helpers\DictionaryExtensions.cs" />
     <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="Helpers\ParsingExtensions.cs" />

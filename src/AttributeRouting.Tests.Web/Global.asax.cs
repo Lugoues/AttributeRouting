@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
+using System.Net;
 using System.Web.Http;
-using System.Web.Http.Dispatcher;
 using System.Web.Http.Hosting;
+using System.Web.Http.Routing;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AttributeRouting.Framework.Localization;
+using AttributeRouting.Helpers;
 using AttributeRouting.Tests.Web.Controllers;
 using AttributeRouting.Web.Constraints;
 using AttributeRouting.Web.Http.WebHost;
@@ -65,7 +66,7 @@ namespace AttributeRouting.Tests.Web
 
             // Web API (WebHost)
             // workaround a problem with default routing dispatcher
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new RouteByPassingHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new BypassHttpRoutingDispatcherHandler());
             GlobalConfiguration.Configuration.Routes.MapHttpAttributeRoutes(config =>
             {
                 config.AddRoutesFromAssemblyOf<MvcApplication>();
@@ -97,15 +98,4 @@ namespace AttributeRouting.Tests.Web
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHostBufferPolicySelector), new CustomWebHostBufferPolicySelector());
         }
     }
-
-    public class RouteByPassingHandler : DelegatingHandler
-    {
-        protected override System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
-        {
-            HttpMessageInvoker invoker = new HttpMessageInvoker(new HttpControllerDispatcher(request.GetConfiguration()));
-            return invoker.SendAsync(request, cancellationToken);
-        }
-    }
- 
-
 }

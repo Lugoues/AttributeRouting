@@ -10,8 +10,8 @@ namespace AttributeRouting.Web.Http.WebHost
         public HttpWebAttributeRoutingConfiguration()
         {
             AttributeRouteFactory = new AttributeRouteFactory(this);
-            ParameterFactory = new RouteParameterFactory();
             RouteConstraintFactory = new RouteConstraintFactory(this);
+            ParameterFactory = new RouteParameterFactory();
 
             RouteHandlerFactory = () => HttpControllerRouteHandler.Instance;
         }

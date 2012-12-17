@@ -9,8 +9,8 @@ namespace AttributeRouting.Web.Mvc
         public WebAttributeRoutingConfiguration()
         {
             AttributeRouteFactory = new AttributeRouteFactory(this);
-            ParameterFactory = new RouteParameterFactory();
             RouteConstraintFactory = new RouteConstraintFactory(this);
+            ParameterFactory = new RouteParameterFactory();
 
             RouteHandlerFactory = () => new MvcRouteHandler();
         }
