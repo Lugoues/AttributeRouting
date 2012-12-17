@@ -13,9 +13,9 @@ namespace AttributeRouting.Web.Mvc.Framework.Factories
 {
     internal class RouteConstraintFactory : IRouteConstraintFactory
     {
-        private readonly AttributeRoutingConfiguration _configuration;
+        private readonly WebAttributeRoutingConfiguration _configuration;
 
-        public RouteConstraintFactory(AttributeRoutingConfiguration configuration)
+        public RouteConstraintFactory(WebAttributeRoutingConfiguration configuration)
         {
             _configuration = configuration;
         }

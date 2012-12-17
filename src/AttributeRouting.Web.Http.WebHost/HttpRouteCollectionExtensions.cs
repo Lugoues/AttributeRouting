@@ -1,9 +1,7 @@
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Web.Http;
-using AttributeRouting.Framework;
-using AttributeRouting.Web.Http.Framework;
+using System.Web.Routing;
 
 namespace AttributeRouting.Web.Http.WebHost
 {
@@ -21,7 +19,7 @@ namespace AttributeRouting.Web.Http.WebHost
             var configuration = new HttpWebAttributeRoutingConfiguration();
             configuration.AddRoutesFromAssembly(Assembly.GetCallingAssembly());
 
-            routes.MapHttpAttributeRoutesInternal(configuration);
+            MapHttpAttributeRoutesInternal(configuration);
         }
 
         /// <summary>
@@ -35,7 +33,7 @@ namespace AttributeRouting.Web.Http.WebHost
             var configuration = new HttpWebAttributeRoutingConfiguration();
             configurationAction.Invoke(configuration);
             
-            routes.MapHttpAttributeRoutesInternal(configuration);
+            MapHttpAttributeRoutesInternal(configuration);
         }
 
         /// <summary>
@@ -46,14 +44,14 @@ namespace AttributeRouting.Web.Http.WebHost
         /// <param name="configuration">The configuration object</param>
         public static void MapHttpAttributeRoutes(this HttpRouteCollection routes, HttpWebAttributeRoutingConfiguration configuration)
         {
-            routes.MapHttpAttributeRoutesInternal(configuration);
+            MapHttpAttributeRoutesInternal(configuration);
         }
 
-        private static void MapHttpAttributeRoutesInternal(this HttpRouteCollection routes, HttpWebAttributeRoutingConfiguration configuration)
+        private static void MapHttpAttributeRoutesInternal(HttpWebAttributeRoutingConfiguration configuration)
         {
-            var attributeRoutes = new RouteBuilder(configuration).BuildAllRoutes().Cast<HttpAttributeRoute>();
-
-            attributeRoutes.ToList().ForEach(r => routes.Add(r.RouteName, r));
+            // For web-hosted routes, the global config returns a thin wrapper over the route table.
+            // For our purposes, just create these routes directly.
+            RouteTable.Routes.MapHttpAttributeRoutes(configuration); 
         }
     }
 }

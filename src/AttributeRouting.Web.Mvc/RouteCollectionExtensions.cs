@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Routing;
 using AttributeRouting.Framework;
-using AttributeRouting.Web.Mvc.Framework;
+using AttributeRouting.Web.Framework;
 
 namespace AttributeRouting.Web.Mvc
 {
@@ -18,7 +18,7 @@ namespace AttributeRouting.Web.Mvc
         /// </summary>
         public static void MapAttributeRoutes(this RouteCollection routes)
         {
-            var configuration = new AttributeRoutingConfiguration();
+            var configuration = new WebAttributeRoutingConfiguration();
             configuration.AddRoutesFromAssembly(Assembly.GetCallingAssembly());
 
             routes.MapAttributeRoutesInternal(configuration);
@@ -30,9 +30,9 @@ namespace AttributeRouting.Web.Mvc
         /// </summary>
         /// <param name="routes"> </param>
         /// <param name="configurationAction">The initialization action that builds the configuration object</param>
-        public static void MapAttributeRoutes(this RouteCollection routes, Action<AttributeRoutingConfiguration> configurationAction)
+        public static void MapAttributeRoutes(this RouteCollection routes, Action<WebAttributeRoutingConfiguration> configurationAction)
         {
-            var configuration = new AttributeRoutingConfiguration();
+            var configuration = new WebAttributeRoutingConfiguration();
             configurationAction.Invoke(configuration);
 
             routes.MapAttributeRoutesInternal(configuration);
@@ -44,16 +44,16 @@ namespace AttributeRouting.Web.Mvc
         /// </summary>
         /// <param name="routes"></param>
         /// <param name="configuration">The configuration object</param>
-        public static void MapAttributeRoutes(this RouteCollection routes, AttributeRoutingConfiguration configuration)
+        public static void MapAttributeRoutes(this RouteCollection routes, WebAttributeRoutingConfiguration configuration)
         {
             routes.MapAttributeRoutesInternal(configuration);
         }
 
-        private static void MapAttributeRoutesInternal(this RouteCollection routes, AttributeRoutingConfiguration configuration)
+        private static void MapAttributeRoutesInternal(this RouteCollection routes, WebAttributeRoutingConfiguration configuration)
         {
             var generatedRoutes = new RouteBuilder(configuration).BuildAllRoutes();
 
-            generatedRoutes.ToList().ForEach(r => routes.Add(r.RouteName, (AttributeRoute)r));
+            generatedRoutes.ToList().ForEach(r => routes.Add(r.RouteName, (WebAttributeRoute)r));
         }
     }
 }

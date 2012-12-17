@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
+using AttributeRouting.Web.Http.Constraints;
 
 namespace AttributeRouting.Web.Http
 {
@@ -10,6 +11,8 @@ namespace AttributeRouting.Web.Http
     {
         protected HttpAttributeRoutingConfigurationBase()
         {
+            RegisterDefaultInlineRouteConstraints<IHttpRouteConstraint>(typeof(RegexRouteConstraint).Assembly);
+
             CurrentUICultureResolver = (ctx, data) => Thread.CurrentThread.CurrentUICulture.Name;
         }
 
@@ -44,6 +47,17 @@ namespace AttributeRouting.Web.Http
         public void AddRoutesFromControllersOfType<T>() where T : IHttpController
         {
             AddRoutesFromControllersOfType(typeof(T));
+        }
+
+        /// <summary>
+        /// Automatically applies the specified constaint against url parameters
+        /// with names that match the given regular expression.
+        /// </summary>
+        /// <param name="keyRegex">The regex used to match url parameter names</param>
+        /// <param name="constraint">The constraint to apply to matched parameters</param>
+        public void AddDefaultRouteConstraint(string keyRegex, IHttpRouteConstraint constraint)
+        {
+            base.AddDefaultRouteConstraint(keyRegex, constraint);
         }
     }
 }

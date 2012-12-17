@@ -21,7 +21,7 @@ namespace AttributeRouting.Specs.Steps
     [Binding]
     public class SharedSteps
     {
-        private AttributeRoutingConfiguration _configuration;
+        private WebAttributeRoutingConfiguration _configuration;
         private HttpWebAttributeRoutingConfiguration _httpConfiguration;
         
         [Given(@"I generate the routes defined in the subject controllers")]
@@ -74,7 +74,7 @@ namespace AttributeRouting.Specs.Steps
         [Given(@"I have a new configuration object")]
         public void GivenIHaveANewConfigurationObject()
         {
-            _configuration = new AttributeRoutingConfiguration();
+            _configuration = new WebAttributeRoutingConfiguration();
             _configuration.InlineRouteConstraints.Add("color", typeof(EnumRouteConstraint<Color>));
 
             _httpConfiguration = new HttpWebAttributeRoutingConfiguration();

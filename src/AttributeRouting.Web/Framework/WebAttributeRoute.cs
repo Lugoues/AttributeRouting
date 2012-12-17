@@ -5,23 +5,23 @@ using System.Web.Routing;
 using AttributeRouting.Framework;
 using AttributeRouting.Helpers;
 
-namespace AttributeRouting.Web.Mvc.Framework
+namespace AttributeRouting.Web.Framework
 {
     /// <summary>
     /// Route to use for ASP.NET Mvc or Web API web-hosted routes.
     /// </summary>
-    public class AttributeRoute : Route, IAttributeRoute
+    public class WebAttributeRoute : Route, IAttributeRoute
     {
-        private readonly AttributeRoutingConfiguration _configuration;
+        private readonly WebAttributeRoutingConfigurationBase _configuration;
 
         /// <summary>
         /// Route used by the AttributeRouting framework in web projects.
         /// </summary>
-        public AttributeRoute(string url,
+        public WebAttributeRoute(string url,
                               RouteValueDictionary defaults,
                               RouteValueDictionary constraints,
                               RouteValueDictionary dataTokens,
-                              AttributeRoutingConfiguration configuration)
+                              WebAttributeRoutingConfigurationBase configuration)
             : base(url, defaults, constraints, dataTokens, configuration.RouteHandlerFactory())
         {
             _configuration = configuration;

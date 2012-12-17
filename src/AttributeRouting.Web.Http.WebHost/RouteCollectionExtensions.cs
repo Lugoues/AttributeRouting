@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Web.Http;
 using System.Web.Routing;
 using AttributeRouting.Framework;
-using AttributeRouting.Web.Http.Framework;
+using AttributeRouting.Web.Http.WebHost.Framework;
 
 namespace AttributeRouting.Web.Http.WebHost
 {
@@ -52,18 +51,9 @@ namespace AttributeRouting.Web.Http.WebHost
 
         private static void MapHttpAttributeRoutesInternal(this RouteCollection routes, HttpWebAttributeRoutingConfiguration configuration)
         {
-            var generatedRoutes = new RouteBuilder(configuration)
-                .BuildAllRoutes()
-                .Cast<HttpAttributeRoute>()
-                .ToList();
+            var generatedRoutes = new RouteBuilder(configuration).BuildAllRoutes();
 
-            var mvcRoutes = RouteTable.Routes;
-            generatedRoutes.ForEach(r =>
-            {
-                var mvcRoute = mvcRoutes.MapHttpRoute(r.RouteName, r.Url, r.Defaults, r.Constraints, r.Handler);
-                mvcRoute.DataTokens = new RouteValueDictionary(r.DataTokens);
-                mvcRoute.RouteHandler = routeHandler;
-            });
+            generatedRoutes.ToList().ForEach(r => routes.Add(r.RouteName, (HttpWebAttributeRoute)r));
         }
     }
 }

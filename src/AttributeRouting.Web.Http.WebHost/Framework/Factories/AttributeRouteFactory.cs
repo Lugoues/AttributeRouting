@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Web.Http.Routing;
+using System.Web.Routing;
 using AttributeRouting.Framework;
 using AttributeRouting.Framework.Factories;
-using AttributeRouting.Web.Http.Framework;
 
 namespace AttributeRouting.Web.Http.WebHost.Framework.Factories
 {
@@ -17,11 +16,11 @@ namespace AttributeRouting.Web.Http.WebHost.Framework.Factories
 
         public IEnumerable<IAttributeRoute> CreateAttributeRoutes(string url, IDictionary<string, object> defaults, IDictionary<string, object> constraints, IDictionary<string, object> dataTokens)
         {
-            yield return new HttpAttributeRoute(url,
-                                                new HttpRouteValueDictionary(defaults),
-                                                new HttpRouteValueDictionary(constraints),
-                                                new HttpRouteValueDictionary(dataTokens),
-                                                _configuration);
+            yield return new HttpWebAttributeRoute(url,
+                                                   new RouteValueDictionary(defaults), 
+                                                   new RouteValueDictionary(constraints), 
+                                                   new RouteValueDictionary(dataTokens), 
+                                                   _configuration);
         }
     }
 }

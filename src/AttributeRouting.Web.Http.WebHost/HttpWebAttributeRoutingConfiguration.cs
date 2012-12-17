@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Web.Routing;
+using System.Web.Http.Controllers;
+using System.Web.Http.WebHost;
 using AttributeRouting.Web.Http.WebHost.Framework.Factories;
 
 namespace AttributeRouting.Web.Http.WebHost
 {
-    public class HttpWebAttributeRoutingConfiguration : HttpAttributeRoutingConfigurationBase
+    public class HttpWebAttributeRoutingConfiguration : WebAttributeRoutingConfigurationBase
     {
         public HttpWebAttributeRoutingConfiguration()
         {
@@ -12,31 +13,33 @@ namespace AttributeRouting.Web.Http.WebHost
             ParameterFactory = new RouteParameterFactory();
             RouteConstraintFactory = new RouteConstraintFactory(this);
 
-            RouteHandlerFactory = () => null;
-            RegisterDefaultInlineRouteConstraints<IRouteConstraint>(typeof(Web.Constraints.RegexRouteConstraint).Assembly);
-        }
-
-        public Func<IRouteHandler> RouteHandlerFactory { get; set; }
-
-        /// <summary>
-        /// Specifies a function that returns an alternate route handler.
-        /// By default, the route handler is the default HttpControllerRouteHandler.
-        /// </summary>
-        /// <param name="routeHandlerFactory">The route handler to use.</param>
-        public void UseRouteHandler(Func<IRouteHandler> routeHandlerFactory)
-        {
-            RouteHandlerFactory = routeHandlerFactory;
+            RouteHandlerFactory = () => HttpControllerRouteHandler.Instance;
         }
 
         /// <summary>
-        /// Automatically applies the specified constaint against url parameters
-        /// with names that match the given regular expression.
+        /// The controller type applicable to this context.
         /// </summary>
-        /// <param name="keyRegex">The regex used to match url parameter names</param>
-        /// <param name="constraint">The constraint to apply to matched parameters</param>
-        public void AddDefaultRouteConstraint(string keyRegex, IRouteConstraint constraint)
+        public override Type FrameworkControllerType
         {
-            base.AddDefaultRouteConstraint(keyRegex, constraint);
+            get { return typeof(IHttpController); }
+        }
+
+        /// <summary>
+        /// Appends the routes from the specified controller type to the end of route collection.
+        /// </summary>
+        /// <typeparam name="T">The controller type.</typeparam>
+        public void AddRoutesFromController<T>() where T : IHttpController
+        {
+            AddRoutesFromController(typeof(T));
+        }
+
+        /// <summary>
+        /// Appends the routes from all controllers that derive from the specified controller type to the route collection.
+        /// </summary>
+        /// <typeparam name="T">The base controller type.</typeparam>
+        public void AddRoutesFromControllersOfType<T>() where T : IHttpController
+        {
+            AddRoutesFromControllersOfType(typeof(T));
         }
     }
 }
