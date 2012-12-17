@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using System.Web.Http.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -62,6 +64,8 @@ namespace AttributeRouting.Tests.Web
                     .RouteUrl(c => c.GetLocalized(), indexRouteUrlDict);
 
             // Web API (WebHost)
+            // workaround a problem with default routing dispatcher
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new RouteByPassingHandler());
             GlobalConfiguration.Configuration.Routes.MapHttpAttributeRoutes(config =>
             {
                 config.AddRoutesFromAssemblyOf<MvcApplication>();
@@ -93,4 +97,15 @@ namespace AttributeRouting.Tests.Web
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHostBufferPolicySelector), new CustomWebHostBufferPolicySelector());
         }
     }
+
+    public class RouteByPassingHandler : DelegatingHandler
+    {
+        protected override System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
+        {
+            HttpMessageInvoker invoker = new HttpMessageInvoker(new HttpControllerDispatcher(request.GetConfiguration()));
+            return invoker.SendAsync(request, cancellationToken);
+        }
+    }
+ 
+
 }

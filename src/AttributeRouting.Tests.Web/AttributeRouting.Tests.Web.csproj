@@ -119,6 +119,7 @@
     <Compile Include="Areas\Api\Controllers\ConstraintsController.cs" />
     <Compile Include="Areas\Api\Controllers\ConventionController.cs" />
     <Compile Include="Areas\Api\Controllers\UploadController.cs" />
+    <Compile Include="Areas\Api\Controllers\UrlHelperTestController.cs" />
     <Compile Include="Controllers\ApiExplorerController.cs" />
     <Compile Include="Areas\Api\Controllers\LocalizationController.cs" />
     <Compile Include="Areas\Api\Controllers\PlainController.cs" />
