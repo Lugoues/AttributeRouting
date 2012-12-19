@@ -14,7 +14,11 @@ Namespace $rootnamespace$.App_Start
 		End Sub
 
         Public Shared Sub Start()
-            RegisterRoutes(GlobalConfiguration.Configuration.Routes)
-        End Sub
+		
+			GlobalConfiguration.Configuration.MessageHandlers.Add(New BypassHttpRoutingDispatcherHandler())
+            
+			RegisterRoutes(GlobalConfiguration.Configuration.Routes)
+        
+		End Sub
     End Class
 End Namespace

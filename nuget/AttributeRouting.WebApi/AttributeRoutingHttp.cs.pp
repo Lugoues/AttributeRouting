@@ -14,7 +14,10 @@ namespace $rootnamespace$.App_Start {
 		}
 
         public static void Start() {
-            RegisterRoutes(GlobalConfiguration.Configuration.Routes);
+		
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new BypassHttpRoutingDispatcherHandler());
+        
+			RegisterRoutes(GlobalConfiguration.Configuration.Routes);
         }
     }
 }
