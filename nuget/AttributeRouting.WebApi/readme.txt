@@ -1,5 +1,9 @@
-AttributeRouting v3.*
+AttributeRouting v3.5+
 
-Upgrading from v2 or v1? Please read about breaking changes here:
+********************
+** IMPORTANT NOTE **
+********************
 
-https://github.com/mccalltd/AttributeRouting/wiki/Upgrading-to-v3
+Upgrading from < v3.5? You MUST add a special message handler to your Web API configuration:
+
+http://attributerouting.net/#asp-net-web-api

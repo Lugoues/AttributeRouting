@@ -8,7 +8,7 @@ Namespace $rootnamespace$
 		' Pass in the configuration you're using for your self-hosted Web API
 		Public Shared Sub RegisterRoutes(config As HttpSelfHostConfiguration)
             
-			' See http://github.com/mccalltd/AttributeRouting/wiki for more options.
+			' See http://attributerouting.net for full documentation.
 			' To debug routes locally, you can log to Console.Out (or any other TextWriter) like so:
 			'     config.Routes.Cast<HttpRoute>().LogTo(Console.Out);
 

@@ -7,7 +7,7 @@ Namespace $rootnamespace$.App_Start
     Public Class AttributeRoutingHttp
 		Public Shared Sub RegisterRoutes(routes As HttpRouteCollection)
             
-			' See http://github.com/mccalltd/AttributeRouting/wiki for more options.
+			' See http://attributerouting.net for full documentation.
 			' To debug routes locally using the built in ASP.NET development server, go to /routes.axd
             
             routes.MapHttpAttributeRoutes()
