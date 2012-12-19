@@ -73,8 +73,11 @@ namespace AttributeRouting.Framework
                         {
                             foreach (var routePrefixAttribute in routePrefixAttributes)
                             {
-                                routeSpecs.Add(BuildRouteSpecification(controllerIndex, controllerType, actionMethod,
-                                                                       routeAreaAttribute, routePrefixAttribute,
+                                routeSpecs.Add(BuildRouteSpecification(controllerIndex,
+                                                                       controllerType,
+                                                                       actionMethod,
+                                                                       routeAreaAttribute,
+                                                                       routePrefixAttribute,
                                                                        routeAttribute));
 
                                 // If ignoring the prefix, do not add the route again for other prefixes!
@@ -84,14 +87,18 @@ namespace AttributeRouting.Framework
                         }
                         else
                         {
-                            routeSpecs.Add(BuildRouteSpecification(controllerIndex, controllerType, actionMethod,
-                                                                   routeAreaAttribute, null, routeAttribute));
+                            routeSpecs.Add(BuildRouteSpecification(controllerIndex,
+                                                                   controllerType,
+                                                                   actionMethod,
+                                                                   routeAreaAttribute,
+                                                                   null,
+                                                                   routeAttribute));
                         }
                     }
                 }
             }
 
-            // Return specs ordered by route precedence: 
+            // Return specs ordered by precedence: 
             return routeSpecs
                 .OrderBy(x => x.SitePrecedence)
                 .ThenBy(x => x.ControllerIndex)
@@ -207,7 +214,7 @@ namespace AttributeRouting.Framework
 
             // If given an area name, then use it.
             // Otherwise, use the last section of the namespace of the controller, as a convention.
-            return routeAreaAttribute.AreaName ?? controllerType.GetLastSectionOfNamespace();
+            return routeAreaAttribute.AreaName ?? controllerType.GetConventionalAreaName();
         }
 
         /// <summary>
@@ -232,7 +239,7 @@ namespace AttributeRouting.Framework
             // If we're given an area url or an area name, then use it.
             // Otherwise, use the last section of the namespace of the controller, as a convention.
             var areaUrlOrName = routeAreaAttribute.AreaUrl ?? routeAreaAttribute.AreaName;
-            return areaUrlOrName ?? controllerType.GetLastSectionOfNamespace();
+            return areaUrlOrName ?? controllerType.GetConventionalAreaName();
         }
 
         /// <summary>

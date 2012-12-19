@@ -138,6 +138,7 @@
     <Compile Include="Steps\RoutePrecedenceSteps.cs" />
     <Compile Include="Steps\SharedSteps.cs" />
     <Compile Include="Steps\StandardUsageSteps.cs" />
+    <Compile Include="Subjects\Areas\Subfolder\RouteAreasControllers.cs" />
     <Compile Include="Subjects\AsyncActionController.cs" />
     <Compile Include="Subjects\BugFixesControllers.cs" />
     <Compile Include="Subjects\Color.cs" />
