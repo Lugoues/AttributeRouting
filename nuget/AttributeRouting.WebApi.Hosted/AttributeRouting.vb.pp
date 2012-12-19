@@ -12,6 +12,7 @@ Namespace $rootnamespace$
 			' To debug routes locally, you can log to Console.Out (or any other TextWriter) like so:
 			'     config.Routes.Cast<HttpRoute>().LogTo(Console.Out);
 
+			config.MessageHandlers.Add(New BypassHttpRoutingDispatcherHandler())
 			config.Routes.MapHttpAttributeRoutes()
 		End Sub
     End Class
