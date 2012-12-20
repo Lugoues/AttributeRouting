@@ -9,6 +9,7 @@ using System.Web.Http.Hosting;
 using System.Web.Http.Routing;
 using System.Web.Routing;
 using AttributeRouting.Helpers;
+using AttributeRouting.Web.Http.WebHost.Routing;
 
 namespace AttributeRouting.Web.Http.WebHost
 {
@@ -21,6 +22,12 @@ namespace AttributeRouting.Web.Http.WebHost
     /// </summary>
     public class BypassHttpRoutingDispatcherHandler : DelegatingHandler
     {
+        /// <summary>
+        /// WORKAROUND: We use our own hosted route collection so we can support HttpWebAttributeRoutes.
+        /// </summary>
+        private static Lazy<HostedHttpRouteCollection> _routes =
+            new Lazy<HostedHttpRouteCollection>(() => new HostedHttpRouteCollection(RouteTable.Routes));
+
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
         {
             // Lookup route data, or if not found as a request property then we look it up in the route table
@@ -28,7 +35,8 @@ namespace AttributeRouting.Web.Http.WebHost
             if (!request.Properties.TryGetValue(HttpPropertyKeys.HttpRouteDataKey, out routeData))
             {
                 // TODO: Replace this with our own, that honors HttpWebAttributeRoute
-                routeData = request.GetConfiguration().Routes.GetRouteData(request);
+                routeData = _routes.Value.GetRouteData(request);
+
                 if (routeData != null)
                 {
                     request.Properties.Add(HttpPropertyKeys.HttpRouteDataKey, routeData);

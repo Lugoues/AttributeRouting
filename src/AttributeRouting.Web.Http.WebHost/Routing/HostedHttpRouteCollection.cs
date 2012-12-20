@@ -8,8 +8,6 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Routing;
-using System.Web.Http.WebHost;
-using System.Web.Http.WebHost.Properties;
 using System.Web.Routing;
 using AttributeRouting.Helpers;
 
