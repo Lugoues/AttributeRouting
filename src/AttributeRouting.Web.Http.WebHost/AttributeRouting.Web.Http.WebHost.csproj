@@ -83,6 +83,20 @@
     <Compile Include="Framework\Factories\AttributeRouteFactory.cs" />
     <Compile Include="Framework\Factories\RouteParameterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routing\Error.cs" />
+    <Compile Include="Routing\HostedHttpRoute.cs" />
+    <Compile Include="Routing\HostedHttpRouteCollection.cs" />
+    <Compile Include="Routing\HostedHttpRouteData.cs" />
+    <Compile Include="Routing\HostedHttpVirtualPathData.cs" />
+    <Compile Include="Routing\HttpContextBaseExtensions.cs" />
+    <Compile Include="Routing\HttpControllerHandlerHelper.cs" />
+    <Compile Include="Routing\HttpMethodHelper.cs" />
+    <Compile Include="Routing\HttpRequestMessageContextWrapper.cs" />
+    <Compile Include="Routing\HttpRequestMessageWrapper.cs" />
+    <Compile Include="Routing\HttpRouteDataExtensions.cs" />
+    <Compile Include="Routing\HttpRouteExtensions.cs" />
+    <Compile Include="Routing\HttpWebRoute.cs" />
+    <Compile Include="Routing\InternalConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AttributeRouting.Web\AttributeRouting.Web.csproj">
